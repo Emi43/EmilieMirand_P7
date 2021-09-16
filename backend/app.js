@@ -2,6 +2,8 @@ const express = require('express');
 
 const mysql = require('mysql');
 const bodyParser = require('body-parser');//pour importer le package body-parser//
+const path = require('path');
+const helmet = require("helmet");//pour importer helmet//
 
 const userRoutes =  require('./routes/user');
 
@@ -18,8 +20,11 @@ app.use((req, res, next) => {//middleware général appliqué à toutes les rout
     next();//next permet d'envoyer le réponse et de passer au middleware suivant//
 });
 
-app.use(bodyParser.json());//pour transformer le corps de la requête en json//  
+app.use(bodyParser.json());//pour transformer le corps de la requête en json// 
+app.use(helmet());//helmet (module de Node)pour sécuriser les en-têtes http//
 
+//je crée un middleware qui va répondre aux requêtes faites à /images et servir le dossier static image//
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 //routes vers les ressources de la base de donnée//
 app.use('/api/users',userRoutes);
