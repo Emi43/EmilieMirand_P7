@@ -80,7 +80,7 @@ exports.deleteUser = (req,res,next) => {
             return res.status(400).send({message : "il est impossible de supprimer un compte utilisateur qui ne vous appartient pas !"})
         }
         if((paramsId === userId) || (admin === 1)) {
-            db.query(`SELECT picture FROM users WHERE id=?`,[paramsId],(err,data) =>{
+            db.query(`SELECT picture FROM users WHERE id = ?`,[paramsId],(err,data) =>{
                 if(err){
                     return res.status(400).json({err}) 
                 };
@@ -100,7 +100,7 @@ exports.deleteUser = (req,res,next) => {
 })  
 }
  
-exports.modifyUser = (req,res,next) => {
+exports.modifyUser = (req,res,next) => {//req à envoyer en form-data//
     const user = req.body;
     if (req.params.id === user.userId) {
         if(req.file){
