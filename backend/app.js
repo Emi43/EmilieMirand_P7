@@ -6,7 +6,8 @@ const path = require('path');
 const helmet = require("helmet");//pour importer helmet//
 
 const userRoutes =  require('./routes/user');
-const postRoutes = require('./routes/post')
+const postRoutes = require('./routes/post');
+const commentRoutes = require('./routes/comment');
 
 const app = express();
 
@@ -30,5 +31,5 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 //routes vers les ressources de la base de donnée//
 app.use('/api/users',userRoutes);
 app.use('/api/posts',postRoutes);
-
+app.use('/api/comments',commentRoutes);
 module.exports = app;
